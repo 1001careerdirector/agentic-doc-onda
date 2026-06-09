@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- saved from url=(0136)https://hrdi-agentic-ai.vercel.app/02_llm_api/01_%EC%99%9C-LLM-API%EB%A5%BC-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94%EA%B0%80.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제2강 — 왜 LLM API를 알아야 하는가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./01_왜 LLM API를 알아야 하는가_files/css2">
+<link rel="stylesheet" href="./01_왜 LLM API를 알아야 하는가_files/style.css">
+</head><body>
+<div class="topbar">
+  <a class="home" href="https://hrdi-agentic-ai.vercel.app/index.html">📚 Agentic AI 강의</a>
+  <span class="ch">제2강 · llm api</span>
+  <span class="meta">한국기술교육대학교 · AI 특화 인재양성 과정</span>
+</div>
+<div class="wrap">
+<div class="content">
+<div class="chip-nav"><b>제2강 · llm api — 세부 목차</b><a class="cur" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/01_%EC%99%9C-LLM-API%EB%A5%BC-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94%EA%B0%80.html">01. 왜 LLM API를 알아야 하는가</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/02_%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5-%EA%B5%AC%EC%A1%B0.html">02. 요청 응답 구조</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/03_%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%A7%80%EC%8B%9C%EB%A1%9C-%EC%97%AD%ED%95%A0-%EB%B6%80%EC%97%AC.html">03. 시스템 지시로 역할 부여</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/04_%ED%86%A0%ED%81%B0%EA%B3%BC-%EB%B9%84%EC%9A%A9-%EA%B0%90%EA%B0%81.html">04. 토큰과 비용 감각</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/05_temperature%EC%99%80-%EC%83%9D%EC%84%B1-%EC%A0%9C%EC%96%B4.html">05. temperature와 생성 제어</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/06_%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0-Gemini-%ED%98%B8%EC%B6%9C.html">06. 따라하기 Gemini 호출</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/07_%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0-OpenAI-%ED%98%B8%ED%99%98-%ED%98%B8%EC%B6%9C.html">07. 따라하기 OpenAI 호환 호출</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/08_%EC%A0%95%EB%A6%AC-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8.html">08. 정리 체크리스트</a><a class="" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/09_%EC%8B%A4%EC%8A%B5%EB%AC%B8%EC%A0%9C%EC%99%80-%ED%95%B4%EB%8B%B5.html">09. 실습문제와 해답</a></div>
+<div class="md">
+<h1 id="llm-api">왜 LLM API를 알아야 하는가</h1>
+<h2 id="_1">한 줄 요약</h2>
+<p>1강에서 <code>generate_content</code>를 한 번 써 봤습니다. 이제 그 <strong>내부 구조</strong>를 제대로 이해할 차례입니다. API를 정확히 다루면 <strong>비용을 아끼고(토큰), 말투를 제어하고(시스템 지시), 결과의 일관성을 조절(temperature)</strong> 할 수 있습니다. 이것이 앞으로 만들 모든 에이전트의 기본기입니다.</p>
+<hr>
+<h2 id="1">1. "그냥 질문하고 답 받으면 되는 거 아닌가요?"</h2>
+<p>처음엔 그렇게 느껴집니다. 1강에서 우리가 한 일은 이게 전부였으니까요.</p>
+<pre><code class="language-python">resp = client.models.generate_content(model="gemini-2.5-flash", contents="안녕")
+print(resp.text)
+</code></pre>
+<p>그런데 이걸 <strong>회사 서비스</strong>로 만들려는 순간, 질문이 쏟아집니다.</p>
+<ul>
+<li>상담봇 말투를 항상 <strong>친절한 존댓말</strong>로 고정하려면? → <strong>시스템 지시</strong></li>
+<li>사용자가 10만 명이면 <strong>요금이 얼마</strong>나 나올까? → <strong>토큰</strong></li>
+<li>똑같이 물어도 답이 매번 달라지는데, <strong>일관되게</strong> 하려면? → <strong>temperature</strong></li>
+<li>GPT로 바꾸면 코드를 다 새로 짜야 하나? → <strong>요청-응답 구조의 공통점</strong></li>
+</ul>
+<p>이 네 가지를 모르면, 동작은 하지만 <strong>통제할 수 없는</strong> 챗봇이 됩니다. 2강은 바로 이 통제력을 손에 넣는 강의입니다.</p>
+<hr>
+<h2 id="2-llm">2. LLM을 '함수'로 보기</h2>
+<p>파이썬 개발자에게 가장 친숙한 비유는 <strong>함수</strong>입니다. LLM API 호출은 결국 이런 함수와 같습니다.</p>
+<pre><code class="language-python">def llm(요청) -&gt; 응답:
+    ...
+</code></pre>
+<ul>
+<li><strong>요청(Request)</strong> 에는 세 가지를 담습니다: <strong>어떤 모델</strong>(model), <strong>무슨 말</strong>(contents), <strong>어떤 설정</strong>(config — 역할·온도 등).</li>
+<li><strong>응답(Response)</strong> 에는 두 가지가 옵니다: <strong>생성된 텍스트</strong>(text), 그리고 <strong>사용량 정보</strong>(usage_metadata — 토큰 수).</li>
+</ul>
+<pre><code class="language-python"># [요청] model(어떤 모델) + contents(무슨 말) + config(어떤 설정)
+resp = client.models.generate_content(
+    model="gemini-2.5-flash",       # 모델
+    contents="환불 얼마나 걸려요?",   # 입력
+    config=...,                      # 설정(역할·온도 등)
+)
+# [응답] resp.text(생성된 답) + resp.usage_metadata(토큰 사용량)
+</code></pre>
+<p>이 "요청 3종 세트 → 응답 2종 세트" 구조는 <strong>Gemini든 OpenAI든 거의 똑같습니다.</strong> 그래서 하나만 제대로 익히면 다른 모델로 갈아타기도 쉽습니다(7번 목차에서 직접 비교합니다).</p>
+<hr>
+<h2 id="3-4">3. 이 강에서 손에 넣을 4가지 통제력</h2>
+<table>
+<thead>
+<tr>
+<th>통제력</th>
+<th>도구</th>
+<th>효과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>말투·역할 고정</td>
+<td>시스템 지시</td>
+<td>항상 일관된 페르소나</td>
+</tr>
+<tr>
+<td>비용 예측·절감</td>
+<td>토큰(usage)</td>
+<td>요금을 숫자로 파악</td>
+</tr>
+<tr>
+<td>일관성 ↔ 다양성</td>
+<td>temperature</td>
+<td>분류는 일관, 창작은 다양</td>
+</tr>
+<tr>
+<td>모델 갈아타기</td>
+<td>공통 요청-응답 구조</td>
+<td>Gemini ↔ OpenAI</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_2">핵심 정리</h2>
+<ul>
+<li>LLM API 호출은 <strong>요청(model·contents·config) → 응답(text·usage)</strong> 구조의 함수다.</li>
+<li>이 구조를 통제하면 <strong>말투·비용·일관성</strong>을 마음대로 다룰 수 있다.</li>
+<li>이 구조는 모델이 달라도 거의 같아, 한 번 익히면 두루 쓰인다.</li>
+<li>다음 절에서 요청-응답 구조를 더 자세히 뜯어봅니다.</li>
+</ul>
+</div>
+</div>
+<div class="pager"><span class="prv off"><span class="lbl">&nbsp;</span>&nbsp;</span><a class="nxt" href="https://hrdi-agentic-ai.vercel.app/02_llm_api/02_%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5-%EA%B5%AC%EC%A1%B0.html"><span class="lbl">다음 절 →</span>02. 요청 응답 구조</a></div>
+</div>
+
+</body></html>

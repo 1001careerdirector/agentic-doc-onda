@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- saved from url=(0127)https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/06_%EC%A0%95%EB%A6%AC-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제1강 — 정리 &amp; 체크리스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./06_정리 체크리스트_files/css2">
+<link rel="stylesheet" href="./06_정리 체크리스트_files/style.css">
+</head><body>
+<div class="topbar">
+  <a class="home" href="https://hrdi-agentic-ai.vercel.app/index.html">📚 Agentic AI 강의</a>
+  <span class="ch">제1강 · agentic ai intro</span>
+  <span class="meta">한국기술교육대학교 · AI 특화 인재양성 과정</span>
+</div>
+<div class="wrap">
+<div class="content">
+<div class="chip-nav"><b>제1강 · agentic ai intro — 세부 목차</b><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/00_%EC%8B%A4%EC%8A%B5%ED%99%98%EA%B2%BD-%EC%A4%80%EB%B9%84%ED%95%98%EA%B8%B0.html">00. 실습환경 준비하기</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/01_%EC%99%9C-%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80.html">01. 왜 에이전트가 필요한가</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/02_AI%EC%95%B1-vs-AI%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8.html">02. AI앱 vs AI에이전트</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/03_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%EC%9D%98-4%EC%9A%94%EC%86%8C-LLM-%EB%8F%84%EA%B5%AC-%EA%B8%B0%EC%96%B5-%EB%A3%A8%ED%94%84.html">03. 에이전트의 4요소 LLM 도구 기억 루프</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/04_%ED%99%98%EA%B0%81%EC%9D%80-%EC%99%9C-%EC%83%9D%EA%B8%B0%EB%8A%94%EA%B0%80.html">04. 환각은 왜 생기는가</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/05_%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0-LLM%EC%9D%98-%ED%95%9C%EA%B3%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0.html">05. 따라하기 LLM의 한계 확인하기</a><a class="cur" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/06_%EC%A0%95%EB%A6%AC-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8.html">06. 정리 체크리스트</a><a class="" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/07_%EC%8B%A4%EC%8A%B5%EB%AC%B8%EC%A0%9C%EC%99%80-%ED%95%B4%EB%8B%B5.html">07. 실습문제와 해답</a></div>
+<div class="md">
+<h1 id="_1">정리 &amp; 체크리스트</h1>
+<h2 id="1">1강에서 배운 것</h2>
+<p>이번 강에서는 <strong>"왜 에이전트가 필요한가"</strong> 를 머리와 손으로 모두 확인했습니다.</p>
+<ul>
+<li><strong>LLM의 한계</strong>: 일반 지식은 잘 답하지만, 실시간·사내 정보는 답하지 못하거나 <strong>환각</strong>으로 지어낸다.</li>
+<li><strong>에이전트의 정의</strong>: LLM(두뇌)에 <strong>도구·기억·루프</strong>를 붙여 실제로 일을 끝내는 시스템.</li>
+<li><strong>AI 앱 vs 에이전트</strong>: 차이는 "<strong>누가 다음 행동을 결정하는가</strong>". 앱은 사람, 에이전트는 LLM.</li>
+<li><strong>4요소</strong>: LLM(판단) · 도구(행동) · 기억(맥락) · 루프(끈기).</li>
+<li><strong>환각</strong>: LLM이 '사실 확인'이 아니라 '다음 단어 예측' 기계라서 생긴다 → 도구로 해결.</li>
+</ul>
+<hr>
+<h2 id="_2">한눈에 보는 핵심 개념</h2>
+<p><strong>에이전트 = LLM(두뇌) + 도구(손발) + 기억 + 루프</strong></p>
+<p>동작 흐름은 다음 한 줄로 요약됩니다.</p>
+<blockquote>
+<p>목표 → <strong>LLM 판단</strong> → <strong>도구 실행</strong> → <strong>결과 관찰</strong> → (기억에 쌓고) 다시 LLM 판단 → … <strong>목표가 끝날 때까지 반복</strong></p>
+</blockquote>
+<hr>
+<h2 id="_3">체크리스트</h2>
+<p>스스로 점검해 보세요. 모두 ✔ 할 수 있으면 다음 강으로 갑니다.</p>
+<ul>
+<li>[ ] AI 앱과 에이전트의 차이를 "누가 다음 행동을 결정하는가"로 설명할 수 있다.</li>
+<li>[ ] 에이전트의 4요소(LLM·Tools·Memory·Loop)를 각각 한 줄로 말할 수 있다.</li>
+<li>[ ] LLM이 실시간/사내 정보에 약하다는 것을 <code>ch01_intro.py</code> 실습으로 확인했다.</li>
+<li>[ ] 환각이 왜 생기는지("다음 단어 예측" 때문)를 설명할 수 있다.</li>
+<li>[ ] <code>client.models.generate_content(model=, contents=)</code> 로 LLM을 호출할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="_4">한 줄 핵심</h2>
+<blockquote>
+<p><strong>LLM은 똑똑하지만 갇힌 두뇌다. 도구·기억·루프를 붙여 '일하게' 만드는 것이 에이전트다.</strong></p>
+</blockquote>
+<hr>
+<h2 id="_5">다음 강 예고</h2>
+<p>2강에서는 LLM <strong>API 사용법</strong>을 제대로 배웁니다. 시스템 지시로 역할을 부여하고, <strong>토큰과 비용</strong> 감각을 익히고, <code>temperature</code>로 답변의 성격을 조절하는 법을 다룹니다. 에이전트의 두뇌를 능숙하게 다루는 첫걸음입니다.</p>
+</div>
+</div>
+<div class="pager"><a class="prv" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/05_%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0-LLM%EC%9D%98-%ED%95%9C%EA%B3%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0.html"><span class="lbl">← 이전 절</span>05. 따라하기 LLM의 한계 확인하기</a><a class="nxt" href="https://hrdi-agentic-ai.vercel.app/01_agentic_ai_intro/07_%EC%8B%A4%EC%8A%B5%EB%AC%B8%EC%A0%9C%EC%99%80-%ED%95%B4%EB%8B%B5.html"><span class="lbl">다음 절 →</span>07. 실습문제와 해답</a></div>
+</div>
+
+</body></html>
